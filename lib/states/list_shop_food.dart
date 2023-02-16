@@ -51,15 +51,25 @@ class _ListShopFoodState extends State<ListShopFood> {
                             padding: const EdgeInsets.all(8),
                             width: boxConstraints.maxWidth * 0.5,
                             height: boxConstraints.maxWidth * 0.3,
-                            child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 WidgetText(
-                                  text: appController.shopModels[index].nameShop,
+                                  text:
+                                      appController.shopModels[index].nameShop,
                                   textStyle: AppConstant().defaultStyle(
                                       size: 20, fontWeight: FontWeight.bold),
                                 ),
-                                WidgetText(text: 'เวลา เปิดปิด : ${appController.shopModels[index].timeShop}'),
-                                WidgetText(text: appController.shopModels[index].detailShoop, textStyle: AppConstant().defaultStyle(color: Colors.red, ),)
+                                WidgetText(
+                                    text:
+                                        'เวลา เปิดปิด : ${appController.shopModels[index].timeShop}'),
+                                WidgetText(
+                                  text: appController
+                                      .shopModels[index].detailShoop,
+                                  textStyle: AppConstant().defaultStyle(
+                                    color: Colors.red,
+                                  ),
+                                )
                               ],
                             ),
                           ),
