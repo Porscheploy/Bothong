@@ -35,12 +35,16 @@ class _ListTravelState extends State<ListTravel> {
               appBar: AppBar(
                 title: const WidgetText(text: 'สถานที่ท่องเที่ยว'),
               ),
-              floatingActionButton: appController.userModels.last.admin ? WidgetFloatingAdd(
-                pressFunc: () {
-                  Get.to(const AddTravel())!.then((value) {});
-                },
-              ) : const SizedBox(),
-              body: appController.travelModels.isEmpty ? const SizedBox() :  ListView.builder(
+              floatingActionButton: appController.userModels.last.admin
+                  ? WidgetFloatingAdd(
+                      pressFunc: () {
+                        Get.to(const AddTravel())!.then((value) {});
+                      },
+                    )
+                  : const SizedBox(),
+              body: appController.travelModels.isEmpty
+                  ? const SizedBox()
+                  : ListView.builder(
                       itemCount: appController.travelModels.length,
                       itemBuilder: (context, index) => Row(
                         children: [
@@ -60,8 +64,8 @@ class _ListTravelState extends State<ListTravel> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 WidgetText(
-                                  text:
-                                      appController.travelModels[index].nameTravel,
+                                  text: appController
+                                      .travelModels[index].nameTravel,
                                   textStyle: AppConstant().defaultStyle(
                                       size: 20, fontWeight: FontWeight.bold),
                                 ),
@@ -74,24 +78,28 @@ class _ListTravelState extends State<ListTravel> {
                                   textStyle: AppConstant().defaultStyle(
                                     color: Colors.red,
                                   ),
-                                ), Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    WidgetIconButton(
-                                      iconData: Icons.delete_forever,color: Colors.red.shade700,
-                                      pressFunc: () async {
-                                         await FirebaseFirestore.instance
-                                            .collection('travel')
-                                            .doc(
-                                                appController.docIdTravels[index])
-                                            .delete()
-                                            .then((value) =>
-                                                AppService().readTravelModels());
-                                      
-                                      },
-                                    ),
-                                  ],
                                 ),
+                                appController.userModels.last.admin
+                                    ? Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          WidgetIconButton(
+                                            iconData: Icons.delete_forever,
+                                            color: Colors.red.shade700,
+                                            pressFunc: () async {
+                                              await FirebaseFirestore.instance
+                                                  .collection('travel')
+                                                  .doc(appController
+                                                      .docIdTravels[index])
+                                                  .delete()
+                                                  .then((value) => AppService()
+                                                      .readTravelModels());
+                                            },
+                                          ),
+                                        ],
+                                      )
+                                    : const SizedBox(),
                               ],
                             ),
                           ),

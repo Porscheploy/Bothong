@@ -72,7 +72,7 @@ class _ListShopFoodState extends State<ListShopFood> {
                                     color: Colors.red,
                                   ),
                                 ),
-                                Row(
+                                appController.userModels.last.admin ? Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     WidgetIconButton(
@@ -91,7 +91,7 @@ class _ListShopFoodState extends State<ListShopFood> {
                                       },
                                     ),
                                   ],
-                                ),
+                                ) : const SizedBox(),
                               ],
                             ),
                           ),
