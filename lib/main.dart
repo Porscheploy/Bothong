@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:ungcomplant/states/authen.dart';
 import 'package:ungcomplant/states/list_shop_food.dart';
@@ -41,6 +42,8 @@ String initialRoute = '/authen';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   await Firebase.initializeApp().then((value) {
     FirebaseAuth.instance.authStateChanges().listen((event) {
       if (event != null) {

@@ -24,12 +24,14 @@ class AppService {
   Future<void> readTravelModels() async {
     if (appController.travelModels.isNotEmpty) {
       appController.travelModels.clear();
+      appController.docIdTravels.clear();
     }
 
     await FirebaseFirestore.instance.collection('travel').get().then((value) {
       for (var element in value.docs) {
         TravelModel model = TravelModel.fromMap(element.data());
         appController.travelModels.add(model);
+        appController.docIdTravels.add(element.id);
       }
     });
   }
@@ -37,12 +39,14 @@ class AppService {
   Future<void> readShopModels() async {
     if (appController.shopModels.isNotEmpty) {
       appController.shopModels.clear();
+      appController.docIdShops.clear();
     }
 
     await FirebaseFirestore.instance.collection('shop').get().then((value) {
       for (var element in value.docs) {
         ShopModel model = ShopModel.fromMap(element.data());
         appController.shopModels.add(model);
+        appController.docIdShops.add(element.id);
       }
     });
   }

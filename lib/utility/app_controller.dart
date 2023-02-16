@@ -20,6 +20,8 @@ class AppController extends GetxController {
   RxList files = <File>[].obs;
   RxList urlImages = <String>[].obs;
   RxList shopModels = <ShopModel>[].obs;
+  RxList docIdShops = <String>[].obs;
   
   RxList travelModels = <TravelModel>[].obs;
+  RxList docIdTravels = <String>[].obs;
 }
