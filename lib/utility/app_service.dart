@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:ungcomplant/models/complant_model.dart';
 import 'package:ungcomplant/models/shop_model.dart';
+import 'package:ungcomplant/models/travel_model.dart';
 import 'package:ungcomplant/models/user_model.dart';
 import 'package:ungcomplant/utility/app_controller.dart';
 import 'package:ungcomplant/utility/app_dialog.dart';
@@ -19,6 +20,19 @@ import 'package:ungcomplant/widgets/widget_button.dart';
 
 class AppService {
   AppController appController = Get.put(AppController());
+
+  Future<void> readTravelModels() async {
+    if (appController.travelModels.isNotEmpty) {
+      appController.travelModels.clear();
+    }
+
+    await FirebaseFirestore.instance.collection('travel').get().then((value) {
+      for (var element in value.docs) {
+        TravelModel model = TravelModel.fromMap(element.data());
+        appController.travelModels.add(model);
+      }
+    });
+  }
 
   Future<void> readShopModels() async {
     if (appController.shopModels.isNotEmpty) {

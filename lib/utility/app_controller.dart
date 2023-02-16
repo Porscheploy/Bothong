@@ -4,6 +4,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:ungcomplant/models/complant_model.dart';
 import 'package:ungcomplant/models/shop_model.dart';
+import 'package:ungcomplant/models/travel_model.dart';
 import 'package:ungcomplant/models/user_model.dart';
 
 class AppController extends GetxController {
@@ -16,9 +17,9 @@ class AppController extends GetxController {
   RxList docIdComplants = <String>[].obs;
   RxList userModels = <UserModel>[].obs;
   RxList chooseStatuss = <String?>[null].obs;
-
   RxList files = <File>[].obs;
   RxList urlImages = <String>[].obs;
   RxList shopModels = <ShopModel>[].obs;
   
+  RxList travelModels = <TravelModel>[].obs;
 }
