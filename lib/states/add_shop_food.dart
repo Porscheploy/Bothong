@@ -92,7 +92,10 @@ class _AddShopFoodState extends State<AddShopFood> {
                                   .collection('shop')
                                   .doc()
                                   .set(shopModel.toMap())
-                                  .then((value) => Get.back());
+                                  .then((value) {
+                                AppService().readShopModels();
+                                Get.back();
+                              });
                             });
                           }
                         },
