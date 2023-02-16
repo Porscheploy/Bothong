@@ -1,9 +1,11 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:io';
+import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -16,6 +18,18 @@ import 'package:ungcomplant/widgets/widget_button.dart';
 
 class AppService {
   AppController appController = Get.put(AppController());
+
+  Future<void> processUploadImage({required String path}) async {
+    String nameImage = 'image${Random().nextInt(1000000)}.jpg';
+    FirebaseStorage storage = FirebaseStorage.instance;
+    Reference reference = storage.ref().child('$path/$nameImage');
+    UploadTask uploadTask = reference.putFile(appController.files.last);
+    await uploadTask.whenComplete(() async {
+      await reference.getDownloadURL().then((value) {
+        appController.urlImages.add(value);
+      });
+    });
+  }
 
   Future<void> processReadUserModels() async {
     var user = FirebaseAuth.instance.currentUser;
