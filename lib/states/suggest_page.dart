@@ -11,7 +11,14 @@ class SuggestPage extends StatelessWidget {
       appBar: AppBar(
         title: WidgetText(text: 'ข้อเสนอแนะ'),
       ),
-      body: WidgetImage(path: 'images/intro.jpg',),
+      body: LayoutBuilder(builder: (context, BoxConstraints boxConstraints) {
+        return SizedBox(width: boxConstraints.maxWidth,height: boxConstraints.maxHeight,
+          child: WidgetImage(
+            path: 'images/intro2.png',
+            boxFit: BoxFit.fill,
+          ),
+        );
+      }),
     );
   }
 }
