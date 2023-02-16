@@ -11,6 +11,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:ungcomplant/models/complant_model.dart';
+import 'package:ungcomplant/models/shop_model.dart';
 import 'package:ungcomplant/models/user_model.dart';
 import 'package:ungcomplant/utility/app_controller.dart';
 import 'package:ungcomplant/utility/app_dialog.dart';
@@ -18,6 +19,19 @@ import 'package:ungcomplant/widgets/widget_button.dart';
 
 class AppService {
   AppController appController = Get.put(AppController());
+
+  Future<void> readShopModels() async {
+    if (appController.shopModels.isNotEmpty) {
+      appController.shopModels.clear();
+    }
+
+    await FirebaseFirestore.instance.collection('shop').get().then((value) {
+      for (var element in value.docs) {
+        ShopModel model = ShopModel.fromMap(element.data());
+        appController.shopModels.add(model);
+      }
+    });
+  }
 
   Future<void> processUploadImage({required String path}) async {
     String nameImage = 'image${Random().nextInt(1000000)}.jpg';
